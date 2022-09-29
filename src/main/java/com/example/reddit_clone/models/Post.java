@@ -1,7 +1,6 @@
 package com.example.reddit_clone.models;
 
 import java.time.Instant;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,8 +16,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+// Class is an entity 
 @Entity
+// Generate Getters
 @Data
+// Initiallise constructors
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

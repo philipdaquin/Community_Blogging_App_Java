@@ -1,37 +1,36 @@
 package com.example.reddit_clone.models;
 
 import java.time.Instant;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.engine.jdbc.env.spi.IdentifierCaseStrategy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
+@Entity
+@Table(name = "token")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Subreddit {
+public class Token {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    // Not blank
-    private String description;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Post> posts; 
-    private Instant createdDate;
+    private String token;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
+    private Instant expiryDate;
 }

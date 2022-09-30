@@ -1,5 +1,7 @@
 package com.example.reddit_clone.models;
 
+import javax.persistence.Entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,4 +13,7 @@ public class NotificationEmail {
     private String subject;
     private String recipient;
     private String body;
+
+
+
 }

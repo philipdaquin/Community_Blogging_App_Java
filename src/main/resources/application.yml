@@ -18,12 +18,13 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: true
+  
+  
   mail:
     host: localhost
     port: 1025
-    username: hello
-    password: hello
-
+    username: spring
+    password: password
     properties:
       mail:
         smtp:

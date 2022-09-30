@@ -36,6 +36,7 @@ public class MailService {
                 messageHelper.setText(email.getBody());
         };
         try {
+            LOGGER.error("Sending verification email!");
             System.out.println("\n✅ Sending over Email!");
             mailSender.send(messagePreparator);
         } catch (MailException e) {

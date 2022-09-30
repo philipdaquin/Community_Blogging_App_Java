@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class AuthService {
      * Find me the matching object in the SecurityConfig 
         @Autowired
      */
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder_;
     private final UserRepository userRepository;
     private final VerificationRepo verificatioRepo;
     /** 
@@ -40,7 +38,7 @@ public class AuthService {
 
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
-        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        user.setPassword(passwordEncoder_.encode(req.getPassword()));
         user.setCreatedAt(Instant.now());
         user.setEnabled(false);
 

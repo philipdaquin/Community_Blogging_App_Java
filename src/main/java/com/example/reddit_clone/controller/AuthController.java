@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.reddit_clone.dto.AuthenticationResponse;
+import com.example.reddit_clone.dto.LoginRequest;
+import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,9 +49,18 @@ public class AuthController {
         return new ResponseEntity<>("Account Activated", HttpStatus.OK);
             
     }
+    /**
+     * Logins the user
+     * - Authenticates the user with username and password -> Generated a token 
+     * - Validate the token and if successfull, Set the SecurityContext to the current token
+     * - Generate JWT token for authorisation
+     * - Send out AuthenticationResponse  
+     * @param loginReq
+     * @return
+     */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginReq) { 
-        authService.loginUser(loginReq);
-        return new ResponseEntity<>("Successful login!", HttpStatus.OK);
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginReq) { 
+        return new ResponseEntity<>(
+            authService.loginUser(loginReq), HttpStatus.OK);
     }
 }

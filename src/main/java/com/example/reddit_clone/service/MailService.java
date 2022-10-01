@@ -25,6 +25,10 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final MailContentBuilder mailContentBuilder;
 
+    /**
+     * 
+     * @param email
+     */
     @Async
     void sendMail(NotificationEmail email) { 
         System.out.println("\n✅ MailService.sendMail()");

@@ -36,6 +36,7 @@ public class AuthService {
      * either on the class or on any of the methods
      */
     public void signUp(RegisterRequest req) { 
+        System.out.println("✅ AuthService.signUp()");
         User user = new User();
 
         user.setUsername(req.getUsername());
@@ -46,8 +47,7 @@ public class AuthService {
 
         // Save user 
         userRepository.save(user);
-
-        var token = generatedVerificationToken(user);
+        var token = generateVerificationToken(user);
         // 
         mailService.sendMail(new NotificationEmail(
             "Spring Boot -- Activate your email account!",
@@ -58,7 +58,13 @@ public class AuthService {
         ));
     }
 
-    private String generatedVerificationToken(User user) {
+    /**
+     * 
+     * @param user
+     * @return
+     */
+    private String generateVerificationToken(User user) {
+        System.out.println("✅ AuthService.generateVerificationToken()");
         String token = UUID.randomUUID().toString();
         // Create  a new Verification token 
         var verifiedToken = new VerificationToken();
@@ -67,6 +73,35 @@ public class AuthService {
         // Save Token
         verificatioRepo.save(verifiedToken);        
         return token;
+    }
+    /**
+     * 
+     * @param token
+     * @return
+     * @throws Exception
+     */
+    public void verifyAccount(String token) { 
+        System.out.println("✅ AuthService.verifyAccount()");
+        // decode the password 
+        var verificationToken = verificatioRepo.findByToken(token);
+        verificationToken.orElseThrow(() -> new IllegalStateException("Invalid token"));
+        fetchUserAndEnable(verificationToken.get());
+    }
+    /**
+     * Accesses database via userRepository
+     * @param verificationToken
+     */
+    @Transactional
+    private void fetchUserAndEnable(VerificationToken verificationToken) {
+        System.out.println("✅ AuthService.fetchUserAndEnable()");
+        // Long userId = verificationToken.getUser().getUserId();
+        // userRepository.findById(userId);
+        String userName = verificationToken.getUser().getUsername();
+        User user = userRepository.findByUsername(userName)
+            .orElseThrow(() -> new IllegalStateException("Unable to find user by username! username"));
+        
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 
 }

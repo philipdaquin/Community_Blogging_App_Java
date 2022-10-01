@@ -7,16 +7,19 @@ import javax.transaction.Transactional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.reddit_clone.controller.LoginRequest;
-import com.example.reddit_clone.controller.RegisterRequest;
+import com.example.reddit_clone.dto.AuthenticationResponse;
+import com.example.reddit_clone.dto.LoginRequest;
+import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.User;
 import com.example.reddit_clone.models.VerificationToken;
 import com.example.reddit_clone.repository.UserRepository;
 import com.example.reddit_clone.repository.VerificationRepo;
+import com.example.reddit_clone.security.JwtProvider;
 
 import lombok.AllArgsConstructor;
 
@@ -29,6 +32,7 @@ public class AuthService {
      * Find me the matching object in the SecurityConfig 
         @Autowired
      */
+    private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final VerificationRepo verificatioRepo;
@@ -41,18 +45,22 @@ public class AuthService {
      */
     public void signUp(RegisterRequest req) { 
         System.out.println("✅ AuthService.signUp()");
+        
+        // Create a new User 
         User user = new User();
+            user.setUsername(req.getUsername());
+            user.setEmail(req.getEmail());
+            user.setPassword(passwordEncoder.encode(req.getPassword()));
+            user.setCreatedAt(Instant.now());
+            user.setEnabled(false);
 
-        user.setUsername(req.getUsername());
-        user.setEmail(req.getEmail());
-        user.setPassword(passwordEncoder.encode(req.getPassword()));
-        user.setCreatedAt(Instant.now());
-        user.setEnabled(false);
-
-        // Save user 
+        // Save User Details inside the Database
         userRepository.save(user);
+
+        // Generate Verification Token
         var token = generateVerificationToken(user);
-        // 
+        
+        // Send Activiattion Mail with the activitation link 
         mailService.sendMail(new NotificationEmail(
             "Spring Boot -- Activate your email account!",
             user.getEmail(), 
@@ -108,14 +116,26 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public void loginUser(LoginRequest loginReq) {
-        authenticationManager.authenticate(
+    /**
+     * Login the user details and set the new context 
+     * 
+     * @param loginReq
+     */
+    public AuthenticationResponse loginUser(LoginRequest loginReq) {
+        System.out.println("✅ AuthService.loginUser()");
+        var authenticate = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 loginReq.getUsername(),
                 loginReq.getPassword()
             )
         );
+        //  Set the security context
+        SecurityContextHolder
+            .getContext()
+            .setAuthentication(authenticate);
+        
+        var jwt = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(jwt, loginReq.getUsername());
     }
-
 }
 

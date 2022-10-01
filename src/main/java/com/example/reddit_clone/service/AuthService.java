@@ -5,9 +5,12 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.reddit_clone.controller.LoginRequest;
 import com.example.reddit_clone.controller.RegisterRequest;
 import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.User;
@@ -30,6 +33,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final VerificationRepo verificatioRepo;
     private final MailService mailService;
+    private final AuthenticationManager authenticationManager;
     /** 
      * @Transactional 
      * Spring creates proxies for all the classes annotated with . 
@@ -102,6 +106,15 @@ public class AuthService {
         
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public void loginUser(LoginRequest loginReq) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                loginReq.getUsername(),
+                loginReq.getPassword()
+            )
+        );
     }
 
 }

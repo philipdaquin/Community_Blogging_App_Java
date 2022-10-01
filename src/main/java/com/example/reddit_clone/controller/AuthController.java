@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reddit_clone.service.AuthService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping(value ={"/api/auth"})
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
-
     /**
      * Post Mapping for SignUp 
      * - RegisterReq contains User Object
@@ -41,11 +40,15 @@ public class AuthController {
      * @param token
      * @return
      */
-    @GetMapping("/api/auth/accountVerification/")
+    @GetMapping("/accountVerification/")
     public ResponseEntity<String> sendVerificationLink(@PathVariable String token) { 
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated", HttpStatus.OK);
             
     }
-
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginReq) { 
+        authService.loginUser(loginReq);
+        return new ResponseEntity<>("Successful login!", HttpStatus.OK);
+    }
 }

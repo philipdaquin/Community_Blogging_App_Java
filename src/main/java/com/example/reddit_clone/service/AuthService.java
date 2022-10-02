@@ -3,13 +3,13 @@ package com.example.reddit_clone.service;
 import java.time.Instant;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.reddit_clone.dto.AuthenticationResponse;
 import com.example.reddit_clone.dto.LoginRequest;

@@ -1,6 +1,5 @@
 package com.example.reddit_clone.dto;
 
-import com.example.reddit_clone.models.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

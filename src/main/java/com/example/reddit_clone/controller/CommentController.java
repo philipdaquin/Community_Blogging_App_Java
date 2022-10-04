@@ -2,6 +2,7 @@ package com.example.reddit_clone.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,11 +37,17 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/by-post/{postId}")
     public ResponseEntity<List<CommentRequest>> getAllCommentsForPost(@PathVariable Long postId) { 
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(commentService.getAllCommentsForPost(postId));
+    }
+    @GetMapping(value = "/user/{username}")
+    public ResponseEntity<List<CommentRequest>> getAllCommentsForUser(@PathVariable String username) { 
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(commentService.getAllCommentsForUsername(username));
     }
 
 

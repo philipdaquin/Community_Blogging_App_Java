@@ -86,4 +86,20 @@ public class CommentService {
             .map(commentMapper::commentToDto)
             .collect(Collectors.toList());
     }
+    /**
+     * 
+     * @param username
+     * @return
+     */
+    public List<CommentRequest> getAllCommentsForUsername(String username) {
+        System.out.println("✅ CommentService.getAllCommentsForUsername()");
+        User user = userRepository
+            .findByUsername(username)
+            .orElseThrow(() -> new IllegalStateException("Unable to find user by username"));
+        return commentRepo
+            .findByUser(user)
+            .stream()
+            .map(commentMapper::commentToDto)
+            .collect(Collectors.toList());
+    }   
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.example.reddit_clone.models.Comment;
 import com.example.reddit_clone.models.Post;
+import com.example.reddit_clone.models.User;
 
 @Repository
 public interface CommentRepo extends JpaRepository<Comment, Long> {
 
     List<Comment> findByPost(Post post);
+    List<Comment> findByUser(User user);
 }

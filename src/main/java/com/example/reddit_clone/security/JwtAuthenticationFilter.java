@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwtFromRequest = getJwtFromRequest(request);
         
 
-        var checkExistJwt = StringUtils.hasText(jwtFromRequest);
+        Boolean checkExistJwt = StringUtils.hasText(jwtFromRequest);
         // Validate the user jwt 
         if (checkExistJwt && jwtProvider.validateToken(jwtFromRequest)) { 
             

@@ -5,4 +5,8 @@ Reddit clone on Java Spring and Angular JS with MVC architecture
 - Spring boot 
 - Lombok
 - Mail Service
-- Postman 
+- Postman
+- MapStruct 
+
+
+Before running the project, ensure to do a Maven Clean up first and then Compile the entire project!

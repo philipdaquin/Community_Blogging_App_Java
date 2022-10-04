@@ -137,5 +137,21 @@ public class AuthService {
         var jwt = jwtProvider.generateToken(authenticate);
         return new AuthenticationResponse(jwt, loginReq.getUsername());
     }
+
+    /**
+     * 
+     * @return
+     */
+    public User getCurrentUser() {
+        System.out.println("✅ AuthService.getCurrentUser()");
+        // Get the current security context
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
+        return userRepository
+            .findByUsername(principal.getUsername())
+            .orElseThrow(() -> new IllegalStateException("Unable to get the current context for this user"));
+    }
 }
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SubRedditDto {
+public class SubRedditRequest {
     private Long id;
     private String name;
     private String description;

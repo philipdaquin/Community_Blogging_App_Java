@@ -23,6 +23,11 @@ import lombok.AllArgsConstructor;
 public class PostController {
     private final PostService postService;
 
+    /**
+     * Write to the database
+     * @param req
+     * @return void || return the orignal PostRequest
+     */
     @PostMapping
     public ResponseEntity<PostRequest> createPost(@RequestBody PostRequest req) { 
         // Save user inside the database
@@ -31,6 +36,12 @@ public class PostController {
             .body(postService.save(req));
     }
 
+    /**
+     * 
+     * Get post by PostId
+     * @param postId
+     * @return
+     */
     @GetMapping(value = "/{postId}")
     public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
         return ResponseEntity
@@ -38,6 +49,11 @@ public class PostController {
             .body(postService.getPost(postId));
     }
 
+    /**
+     * 
+     * Get all posts in the database
+     * @return
+     */
     @GetMapping(value = "/")
     public ResponseEntity<List<PostResponse>> getAllPost() { 
         return ResponseEntity
@@ -45,6 +61,11 @@ public class PostController {
             .body(postService.getAllPosts());
     }
 
+    /**
+     * Get posts in a subredddit
+     * @param postId
+     * @return
+     */
     @GetMapping("/subreddit/{id}")
     public ResponseEntity<List<PostResponse>> getPostsBySubReddit(Long postId) { 
         return ResponseEntity
@@ -52,6 +73,11 @@ public class PostController {
             .body(postService.getPostsBySubReddit(postId));
     }
 
+    /**
+     * Get all posts by user
+     * @param username
+     * @return
+     */
     @GetMapping("/{usernmae}/")
     public ResponseEntity<List<PostResponse>> getPostByUser(String username) { 
         return ResponseEntity

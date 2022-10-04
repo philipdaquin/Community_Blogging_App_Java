@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.reddit_clone.dto.SubRedditDto;
+import com.example.reddit_clone.dto.SubRedditRequest;
 import com.example.reddit_clone.mapper.SubRedditMapper;
 import com.example.reddit_clone.repository.SubRedditRepo;
 
@@ -24,7 +24,7 @@ public class SubRedditService {
      * @param newSubReddit
      */
     @Transactional
-    public SubRedditDto saveSubReddit(SubRedditDto newSubReddit) { 
+    public SubRedditRequest saveSubReddit(SubRedditRequest newSubReddit) { 
         var toSave = subRedditRepo.save(subRedditMapper.mapDtoToSubReddit(newSubReddit));
 
         // Get id from database
@@ -36,7 +36,7 @@ public class SubRedditService {
      * @return
      */
     @Transactional(readOnly = true)
-    public List<SubRedditDto> getAll() {
+    public List<SubRedditRequest> getAll() {
         return subRedditRepo.findAll()
             .stream()
             .map(subRedditMapper::mapSubRedditToDto)

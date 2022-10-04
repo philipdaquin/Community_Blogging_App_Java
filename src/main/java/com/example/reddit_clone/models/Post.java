@@ -38,8 +38,8 @@ public class Post {
     private String url;
 
     // Nullable value 
-    @Nullable
     // A large object declared for the database
+    @Nullable
     @Lob
     private String description;
     private Integer voteCount;
@@ -53,7 +53,5 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private SubReddit subredditName;
-
-
 
 }

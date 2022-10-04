@@ -31,7 +31,7 @@ public class PostService {
     private final UserRepository userRepository;
 
 
-    public void save(PostRequest postRequest) {
+    public PostRequest save(PostRequest postRequest) {
         
         // get subreddit from postrequest
         System.out.println("✅ Retrieving the subreddit from the subreddit name!");
@@ -47,6 +47,7 @@ public class PostService {
         
         System.out.println("✅ Saving User");
         postRepository.save(dtoConversion);
+        return postRequest;
     }
     /**
      * Get post by id 

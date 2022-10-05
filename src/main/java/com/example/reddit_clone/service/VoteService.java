@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.reddit_clone.dto.VoteRequest;
-import com.example.reddit_clone.mapper.VoteMapper;
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.Vote;
 import com.example.reddit_clone.models.VoteType;
@@ -22,7 +21,6 @@ public class VoteService {
     private final PostRepository postRepository;
     private final AuthService authService;
     private final VoteRepository voteRepository;
-    private final VoteMapper voteMapper;
 
     @Transactional
     public void vote(VoteRequest req) {
@@ -32,7 +30,7 @@ public class VoteService {
             .orElseThrow(() -> new IllegalStateException("Post Not Found!"));    
         // 
         Optional<Vote> votesUnderPost = voteRepository
-            .findTopByPostAndUserVoteIdDesc(post, authService.getCurrentUser());
+            .findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
         
         if (votesUnderPost.isPresent() && 
             votesUnderPost

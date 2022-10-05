@@ -1,13 +1,11 @@
 package com.example.reddit_clone.service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.example.reddit_clone.dto.CommentRequest;
-import com.example.reddit_clone.dto.PostResponse;
 import com.example.reddit_clone.mapper.CommentMapper;
 import com.example.reddit_clone.models.Comment;
 import com.example.reddit_clone.models.NotificationEmail;

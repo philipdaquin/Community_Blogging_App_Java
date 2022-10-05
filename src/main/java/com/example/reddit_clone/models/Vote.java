@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// builder pattern,head first design pattern
 @Data
 @Entity
 @Builder

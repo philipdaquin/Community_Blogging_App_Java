@@ -1,11 +1,15 @@
 # reddit_clone
 Reddit clone on Java Spring and Angular JS with MVC architecture
 
-- Angular 
+- Angular 9
+- Spring MVC
+- Spring Security with JWT Authentication
 - Spring boot 
 - Lombok
+- Spring Data JPA
 - Mail Service
 - Postman
+- PostgreSQL
 - MapStruct 
 
 

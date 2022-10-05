@@ -67,6 +67,11 @@ public class AuthController {
             authService.loginUser(loginReq), HttpStatus.OK);
     }
 
+    /**
+     * 
+     * @param req RequestTokenRequest 
+     * @return AuthenticationResponse Object
+     */
     @PostMapping(value = "/referesh/token/")
     public AuthenticationResponse getRefreshTokens(@Valid @RequestBody RefreshTokenRequest req) {
         return authService.refreshToken(req);

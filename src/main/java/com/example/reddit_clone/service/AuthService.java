@@ -140,6 +140,7 @@ public class AuthService {
         return AuthenticationResponse.builder()
             .authentiticatedToken(jwt)
             .username(loginReq.getUsername())
+            .refreshToken("")
             .expiresAt(Instant.now().plusMillis(jwtProvider.getExpirationTime()))
             .build();
     }

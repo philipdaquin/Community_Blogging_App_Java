@@ -19,7 +19,6 @@ spring:
     show-sql: true
     open-in-view: true
   
-  
   mail:
     host: localhost
     port: 1025
@@ -36,3 +35,4 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
+jwt.expiration.time: 900000

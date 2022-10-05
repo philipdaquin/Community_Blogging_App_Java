@@ -13,6 +13,7 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.validator.internal.util.privilegedactions.GetResolvedMemberMethods;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -119,5 +120,14 @@ public class JwtProvider {
      */
     public Long getExpirationTime() {
         return jwtExpirationtime;
+    }
+
+    public String generateTokenWithUserName(String username) {
+       return Jwts.builder()
+        .setSubject(username)
+        .setIssuedAt(Date.from(Instant.now()))
+        .signWith(getPrivateKey())
+        .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationtime)))
+        .compact();
     }
 }

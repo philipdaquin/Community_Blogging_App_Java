@@ -40,6 +40,7 @@ public class AuthService {
     private final VerificationRepo verificatioRepo;
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
     /** 
      * @Transactional 
      * Spring creates proxies for all the classes annotated with . 
@@ -140,7 +141,7 @@ public class AuthService {
         return AuthenticationResponse.builder()
             .authentiticatedToken(jwt)
             .username(loginReq.getUsername())
-            .refreshToken("")
+            .refreshToken(refreshTokenService.generateRefreshToken().getToken())
             .expiresAt(Instant.now().plusMillis(jwtProvider.getExpirationTime()))
             .build();
     }
@@ -161,8 +162,23 @@ public class AuthService {
             .orElseThrow(() -> new IllegalStateException("Unable to get the current context for this user"));
     }
 
+    /**
+     * Validate Refresh token first
+     * Generate token based on username
+     * Send Authentication Response to the user
+     * @param req RefreshTokenRequest
+     * @return AuthenticationResponse 
+     */
     public AuthenticationResponse refreshToken(@Valid RefreshTokenRequest req) {
-        return null;
+        
+        refreshTokenService.validateRefreshToken(req.getRefreshtoken());
+        var token = jwtProvider.generateTokenWithUserName(req.getUsername());
+        return AuthenticationResponse.builder()
+            .authentiticatedToken(token)
+            .username(req.getUsername())
+            .refreshToken(req.getRefreshtoken())
+            .expiresAt(Instant.now().plusMillis(jwtProvider.getExpirationTime()))
+            .build(); 
     }
 }
 

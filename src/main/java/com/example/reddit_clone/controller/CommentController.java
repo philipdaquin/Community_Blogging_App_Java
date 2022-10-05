@@ -2,7 +2,6 @@ package com.example.reddit_clone.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +24,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommentController {
 
-    private final CommentRepo commentRepo;
-    private final PostRepository postRepository;
-    private final UserRepository userRepository;
+    // private final CommentRepo commentRepo;
+    // private final PostRepository postRepository;
+    // private final UserRepository userRepository;
     private final CommentService commentService;
 
 

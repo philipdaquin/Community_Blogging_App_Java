@@ -16,6 +16,7 @@ import com.example.reddit_clone.dto.LoginRequest;
 import com.example.reddit_clone.dto.RefreshTokenRequest;
 import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.service.AuthService;
+import com.example.reddit_clone.service.RefreshTokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final AuthService authService;
+    private final RefreshTokenService refreshTokenService;
+    
     /**
      * Post Mapping for SignUp 
      * - RegisterReq contains User Object
@@ -76,4 +79,10 @@ public class AuthController {
     public AuthenticationResponse getRefreshTokens(@Valid @RequestBody RefreshTokenRequest req) {
         return authService.refreshToken(req);
     }
+
+    @PostMapping(value = "/logout")
+    public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest req) {
+        refreshTokenService.deleteRefreshToken(req.getRefreshtoken()); 
+        return ResponseEntity.status(HttpStatus.OK).body("Logout!!! Hell Yeah");
+   }
 }

@@ -8,9 +8,12 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ import io.jsonwebtoken.Jwts;
 public class JwtProvider {
     
     private KeyStore keyStore;
+    
+    @Value("${jwt.expiration.time}")
+    private Long jwtExpirationtime;
 
     /**
      * Set the initial keyStore for JWT from a private key 
@@ -47,9 +53,12 @@ public class JwtProvider {
     public String generateToken(Authentication auth) { 
         System.out.println("✅ JwtProvider.generateToken()");
         User principal = (User) auth.getPrincipal();
+        Date expiry = Date.from(Instant.now().plusMillis(jwtExpirationtime));
+        
         return Jwts.builder()
             .setSubject(principal.getUsername())
             .signWith(getPrivateKey())
+            .setExpiration(expiry)
             .compact();
     }
     /**
@@ -103,5 +112,12 @@ public class JwtProvider {
             .parseClaimsJws(token)
             .getBody();
         return claims.getSubject();
+    }
+    /**
+     * 
+     * @return
+     */
+    public Long getExpirationTime() {
+        return jwtExpirationtime;
     }
 }

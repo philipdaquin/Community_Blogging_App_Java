@@ -3,6 +3,7 @@ package com.example.reddit_clone.service;
 import java.time.Instant;
 import java.util.UUID;
 
+import javax.validation.Valid;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.reddit_clone.dto.AuthenticationResponse;
 import com.example.reddit_clone.dto.LoginRequest;
+import com.example.reddit_clone.dto.RefreshTokenRequest;
 import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.User;
@@ -135,9 +137,13 @@ public class AuthService {
             .setAuthentication(authenticate);
         
         var jwt = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(jwt, loginReq.getUsername());
+        return AuthenticationResponse.builder()
+            .authentiticatedToken(jwt)
+            .username(loginReq.getUsername())
+            .expiresAt(Instant.now().plusMillis(jwtProvider.getExpirationTime()))
+            .build();
     }
-
+    
     /**
      * 
      * @return
@@ -152,6 +158,10 @@ public class AuthService {
         return userRepository
             .findByUsername(principal.getUsername())
             .orElseThrow(() -> new IllegalStateException("Unable to get the current context for this user"));
+    }
+
+    public AuthenticationResponse refreshToken(@Valid RefreshTokenRequest req) {
+        return null;
     }
 }
 

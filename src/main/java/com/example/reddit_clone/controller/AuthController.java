@@ -1,5 +1,7 @@
 package com.example.reddit_clone.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reddit_clone.dto.AuthenticationResponse;
 import com.example.reddit_clone.dto.LoginRequest;
+import com.example.reddit_clone.dto.RefreshTokenRequest;
 import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.service.AuthService;
 
@@ -62,5 +65,10 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginReq) { 
         return new ResponseEntity<>(
             authService.loginUser(loginReq), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/referesh/token/")
+    public AuthenticationResponse getRefreshTokens(@Valid @RequestBody RefreshTokenRequest req) {
+        return authService.refreshToken(req);
     }
 }

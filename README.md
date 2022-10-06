@@ -1,7 +1,11 @@
 # reddit_clone
 Reddit clone on Java Spring and Angular JS with MVC architecture
 
-- Angular 9
+
+- Typescript
+- Java 11 Maven
+- Sass/Scss
+- Angular 14
 - Spring MVC
 - Spring Security with JWT Authentication
 - Spring boot 

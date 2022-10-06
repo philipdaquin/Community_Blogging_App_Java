@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reddit_clone.dto.CommentRequest;
-import com.example.reddit_clone.repository.CommentRepo;
-import com.example.reddit_clone.repository.PostRepository;
-import com.example.reddit_clone.repository.UserRepository;
 import com.example.reddit_clone.service.CommentService;
 
 import lombok.AllArgsConstructor;
@@ -24,13 +21,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommentController {
 
-    // private final CommentRepo commentRepo;
-    // private final PostRepository postRepository;
-    // private final UserRepository userRepository;
     private final CommentService commentService;
 
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<Void> createComment(@RequestBody CommentRequest req) { 
         commentService.save(req);
         return new ResponseEntity<>(HttpStatus.CREATED);

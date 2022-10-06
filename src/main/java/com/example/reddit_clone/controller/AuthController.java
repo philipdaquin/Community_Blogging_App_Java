@@ -21,7 +21,7 @@ import com.example.reddit_clone.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value ={"/api/auth"})
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -64,7 +64,7 @@ public class AuthController {
      * @param loginReq
      * @return
      */
-    @PostMapping("/login")
+    @PostMapping("/login/")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginReq) { 
         return new ResponseEntity<>(
             authService.loginUser(loginReq), HttpStatus.OK);

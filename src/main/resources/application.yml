@@ -5,6 +5,9 @@ server:
   port: 8080
     
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
   datasource:
     password: password
     url: jdbc:postgresql://localhost:5432/reddit_clone

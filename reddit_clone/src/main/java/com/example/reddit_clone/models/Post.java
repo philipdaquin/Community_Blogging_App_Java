@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 
 
 // Class is an entity 
-@Entity
 // Generate Getters
-@Data
 // Initiallise constructors
+@Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

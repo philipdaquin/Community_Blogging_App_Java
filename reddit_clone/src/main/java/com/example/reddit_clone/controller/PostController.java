@@ -43,7 +43,7 @@ public class PostController {
      * @param postId
      * @return
      */
-    @GetMapping(value = "/{postId}")
+    @GetMapping(value = "/{postId}/")
     public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -67,7 +67,7 @@ public class PostController {
      * @param postId
      * @return
      */
-    @GetMapping("/subreddit/{id}")
+    @GetMapping("/subreddit/{id}/")
     public ResponseEntity<List<PostResponse>> getPostsBySubReddit(Long postId) { 
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -79,7 +79,7 @@ public class PostController {
      * @param username
      * @return
      */
-    @GetMapping("/{usernmae}/")
+    @GetMapping("/{username}/")
     public ResponseEntity<List<PostResponse>> getPostByUser(String username) { 
         return ResponseEntity
             .status(HttpStatus.OK)

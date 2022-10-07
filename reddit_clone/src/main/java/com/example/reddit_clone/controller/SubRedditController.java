@@ -41,7 +41,7 @@ public class SubRedditController {
      * 
      * @return
      */
-    @GetMapping(value = {"/{id}"})
+    @GetMapping(value = {"/{id}/"})
     public ResponseEntity<List<SubRedditRequest>> getAllSubReddit(@PathVariable Long id) { 
         return ResponseEntity.status(HttpStatus.OK).body(subRedditService.getAll());
     }

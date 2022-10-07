@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 public class VoteController {
     private final VoteService voteService;
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<Void> vote(@RequestBody VoteRequest req) { 
         voteService.vote(req);
         return ResponseEntity.status(HttpStatus.OK).build();

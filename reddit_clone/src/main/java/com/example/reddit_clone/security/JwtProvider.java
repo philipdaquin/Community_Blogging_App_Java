@@ -13,7 +13,6 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetResolvedMemberMethods;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -69,9 +68,10 @@ public class JwtProvider {
     private PrivateKey getPrivateKey() {
         System.out.println("✅ JwtProvider.getPrivateKey()");
         try {
+            System.out.println("✅ Retrieving the private key and secret");
             return (PrivateKey) keyStore.getKey("spring-blog", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableEntryException e) {
-            throw new IllegalStateException("Exception occurred while retrieving public key from keystore");        
+            throw new IllegalStateException("❌ Exception occurred while retrieving public key from keystore");        
         }
     } 
     /**

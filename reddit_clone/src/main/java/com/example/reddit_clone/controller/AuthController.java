@@ -50,7 +50,7 @@ public class AuthController {
      * @param token
      * @return
      */
-    @GetMapping("/accountVerification/")
+    @GetMapping("/accountVerification/{token}")
     public ResponseEntity<String> sendVerificationLink(@PathVariable String token) { 
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated", HttpStatus.OK);

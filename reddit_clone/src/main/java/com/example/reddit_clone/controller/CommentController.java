@@ -31,13 +31,13 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/by-post/{postId}")
+    @GetMapping(value = "/by-post/{postId}/")
     public ResponseEntity<List<CommentRequest>> getAllCommentsForPost(@PathVariable Long postId) { 
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(commentService.getAllCommentsForPost(postId));
     }
-    @GetMapping(value = "/user/{username}")
+    @GetMapping(value = "/user/{username}/")
     public ResponseEntity<List<CommentRequest>> getAllCommentsForUser(@PathVariable String username) { 
         return ResponseEntity
             .status(HttpStatus.OK)

@@ -1,6 +1,5 @@
 package com.example.reddit_clone.models;
 
-import javax.persistence.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

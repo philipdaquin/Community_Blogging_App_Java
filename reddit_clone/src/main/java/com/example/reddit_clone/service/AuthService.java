@@ -63,6 +63,7 @@ public class AuthService {
 
         // Generate Verification Token
         var token = generateVerificationToken(user);
+        System.out.println(token);
         
         // Send Activiattion Mail with the activitation link 
         mailService.sendMail(new NotificationEmail(

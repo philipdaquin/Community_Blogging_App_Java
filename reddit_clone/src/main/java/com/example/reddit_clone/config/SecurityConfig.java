@@ -84,7 +84,6 @@ public class SecurityConfig {
                         "/webjars/**")
                 .permitAll()
                 .anyRequest()
-                // .hasAuthority("ADMIN")
                 .authenticated()
                 );
         return http.build();

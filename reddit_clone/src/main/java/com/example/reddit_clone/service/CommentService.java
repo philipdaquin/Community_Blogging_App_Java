@@ -10,7 +10,7 @@ import com.example.reddit_clone.mapper.CommentMapper;
 import com.example.reddit_clone.models.Comment;
 import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.Post;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.repository.CommentRepo;
 import com.example.reddit_clone.repository.PostRepository;
 import com.example.reddit_clone.repository.UserRepository;
@@ -41,7 +41,7 @@ public class CommentService {
         Post post = postRepository
             .findById(newComment.getPostId())
             .orElseThrow(() -> new IllegalStateException("Unable to find post id for comment"));
-        User user = authService.getCurrentUser();
+            UserObject user = authService.getCurrentUser();
         // Map DTO to Comment
         Comment dtoConversion = commentMapper.map(newComment, post, user);
         // Save to database
@@ -59,7 +59,7 @@ public class CommentService {
      * @param message
      * @param user
      */
-    private void sendCommentNotification(String message, User user) {
+    private void sendCommentNotification(String message, UserObject user) {
         System.out.println("🛫 Sending message to user!");
         mailService.sendMail(new NotificationEmail(
             // Subject
@@ -91,7 +91,7 @@ public class CommentService {
      */
     public List<CommentRequest> getAllCommentsForUsername(String username) {
         System.out.println("✅ CommentService.getAllCommentsForUsername()");
-        User user = userRepository
+        UserObject user = userRepository
             .findByUsername(username)
             .orElseThrow(() -> new IllegalStateException("Unable to find user by username"));
         return commentRepo

@@ -26,6 +26,6 @@ public class Token {
     private String token;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private User user;
+    private UserObject user;
     private Instant expiryDate;
 }

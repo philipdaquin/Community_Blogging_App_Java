@@ -17,7 +17,7 @@ import com.example.reddit_clone.dto.LoginRequest;
 import com.example.reddit_clone.dto.RefreshTokenRequest;
 import com.example.reddit_clone.dto.RegisterRequest;
 import com.example.reddit_clone.models.NotificationEmail;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.models.VerificationToken;
 import com.example.reddit_clone.repository.UserRepository;
 import com.example.reddit_clone.repository.VerificationRepo;
@@ -50,7 +50,7 @@ public class AuthService {
         System.out.println("✅ AuthService.signUp()");
         
         // Create a new User 
-        User user = new User();
+        UserObject user = new UserObject();
             user.setUsername(req.getUsername());
             user.setEmail(req.getEmail());
             user.setPassword(passwordEncoder.encode(req.getPassword()));
@@ -58,6 +58,7 @@ public class AuthService {
             user.setEnabled(false);
 
         // Save User Details inside the Database
+        System.out.println("😎 Inserting into Database");
         userRepository.save(user);
 
         // Generate Verification Token
@@ -78,7 +79,7 @@ public class AuthService {
      * @param user
      * @return
      */
-    private String generateVerificationToken(User user) {
+    private String generateVerificationToken(UserObject user) {
         System.out.println("✅ AuthService.generateVerificationToken()");
         String token = UUID.randomUUID().toString();
         // Create  a new Verification token 
@@ -112,7 +113,7 @@ public class AuthService {
         // Long userId = verificationToken.getUser().getUserId();
         // userRepository.findById(userId);
         String userName = verificationToken.getUser().getUsername();
-        User user = userRepository.findByUsername(userName)
+        UserObject user = userRepository.findByUsername(userName)
             .orElseThrow(() -> new IllegalStateException("Unable to find user by username! username"));
         
         user.setEnabled(true);
@@ -150,7 +151,7 @@ public class AuthService {
      * 
      * @return
      */
-    public User getCurrentUser() {
+    public UserObject getCurrentUser() {
         System.out.println("✅ AuthService.getCurrentUser()");
         // Get the current security context
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder

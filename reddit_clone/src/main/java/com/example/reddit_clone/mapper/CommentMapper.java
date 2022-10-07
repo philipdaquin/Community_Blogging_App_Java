@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import com.example.reddit_clone.dto.CommentRequest;
 import com.example.reddit_clone.models.Comment;
 import com.example.reddit_clone.models.Post;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
@@ -24,7 +24,7 @@ public interface CommentMapper {
     @Mapping(target = "post", source = "post")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "user", source = "user")
-    Comment map(CommentRequest commentRequest, Post post, User user);
+    Comment map(CommentRequest commentRequest, Post post, UserObject user);
 
 
     /**

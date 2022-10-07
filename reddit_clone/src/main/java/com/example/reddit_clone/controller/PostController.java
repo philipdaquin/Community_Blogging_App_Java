@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reddit_clone.dto.PostRequest;
@@ -18,7 +19,7 @@ import com.example.reddit_clone.service.PostService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(value = {"/api/posts"})
+@RequestMapping(value = {"/api/posts"}, method = {RequestMethod.GET, RequestMethod.POST})
 @AllArgsConstructor
 public class PostController {
     private final PostService postService;

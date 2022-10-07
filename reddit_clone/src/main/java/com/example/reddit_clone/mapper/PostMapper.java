@@ -9,7 +9,7 @@ import com.example.reddit_clone.dto.PostRequest;
 import com.example.reddit_clone.dto.PostResponse;
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.SubReddit;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.repository.CommentRepo;
 import com.example.reddit_clone.repository.VoteRepository;
 import com.example.reddit_clone.service.AuthService;
@@ -41,7 +41,7 @@ public abstract class PostMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "subredditName", source = "subRedditName")
     @Mapping(target = "voteCount", constant = "0")
-    public abstract Post map(PostRequest postRequest, SubReddit subRedditName, User user);
+    public abstract Post map(PostRequest postRequest, SubReddit subRedditName, UserObject user);
 
 
     /**

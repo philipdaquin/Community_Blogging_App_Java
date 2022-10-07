@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserObject, Long> {
 
-    Optional<User> findByUsername(String username);
+    Optional<UserObject> findByUsername(String username);
 
     
 }

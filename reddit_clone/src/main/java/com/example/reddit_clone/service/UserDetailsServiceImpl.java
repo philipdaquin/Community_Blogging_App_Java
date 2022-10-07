@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOption = userRepository.findByUsername(username);
+        Optional<UserObject> userOption = userRepository.findByUsername(username);
 
         var user = userOption
             .orElseThrow(() -> new UsernameNotFoundException("Unable to retrieve the user details"));

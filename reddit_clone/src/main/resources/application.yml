@@ -13,6 +13,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/reddit_clone
     username: postgres
   jpa:
+    generate-ddl: true
     hibernate:
       ddl-auto: create-drop
     properties:
@@ -20,7 +21,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-    open-in-view: true
+    open-in-view: false
+    
   
   mail:
     host: localhost

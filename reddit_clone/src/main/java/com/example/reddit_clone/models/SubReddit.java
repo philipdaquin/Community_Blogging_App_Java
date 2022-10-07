@@ -38,5 +38,5 @@ public class SubReddit {
     private Instant createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private UserObject user;
 }

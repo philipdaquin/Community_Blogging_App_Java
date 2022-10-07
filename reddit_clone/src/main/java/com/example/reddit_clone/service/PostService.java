@@ -12,7 +12,7 @@ import com.example.reddit_clone.dto.PostResponse;
 import com.example.reddit_clone.mapper.PostMapper;
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.SubReddit;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.repository.PostRepository;
 import com.example.reddit_clone.repository.SubRedditRepo;
 import com.example.reddit_clone.repository.UserRepository;
@@ -39,7 +39,7 @@ public class PostService {
             .orElseThrow(() -> new IllegalStateException("Unable to find SubReddit By Name"));
         
         System.out.println("✅ Getting the current context --> get user");
-        User user = authService.getCurrentUser();
+        UserObject user = authService.getCurrentUser();
         
         System.out.println("✅ Mapping post from the DTO");
         Post dtoConversion = postMapper.map(postRequest, subreddit, user);

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.SubReddit;
-import com.example.reddit_clone.models.User;
+import com.example.reddit_clone.models.UserObject;
 
 
 /*
@@ -21,6 +21,6 @@ import com.example.reddit_clone.models.User;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findBySubredditName(SubReddit subredditName);
-    List<Post> findByUser(User user);
+    List<Post> findByUser(UserObject user);
 
 }

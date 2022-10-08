@@ -21,7 +21,7 @@ public class KafkaProducerService {
         System.out.println("📦📦 KafkaProducerService.sendMessage()");
         final ProducerRecord<String, NotificationEmail> record = new ProducerRecord<>(topicName, message);
 
-            kafkaTemplate.send(record);
+        kafkaTemplate.send(record);
 
     } 
 }

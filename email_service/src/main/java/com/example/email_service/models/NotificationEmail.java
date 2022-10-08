@@ -1,4 +1,4 @@
-package com.example.reddit_clone.models;
+package com.example.email_service.models;
 
 
 import lombok.AllArgsConstructor;

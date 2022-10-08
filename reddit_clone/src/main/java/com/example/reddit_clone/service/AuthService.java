@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.reddit_clone.config.kafka.KafkaProducerConfig;
 import com.example.reddit_clone.dto.AuthenticationResponse;
 import com.example.reddit_clone.dto.LoginRequest;
 import com.example.reddit_clone.dto.RefreshTokenRequest;
@@ -45,6 +43,7 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     // private final MailService mailService;
     private final KafkaProducerService  kafkaProducerService;
+
     /** 
      * @Transactional 
      * Spring creates proxies for all the classes annotated with . 
@@ -77,7 +76,7 @@ public class AuthService {
                 "http://localhost:8080/api/auth/accountVerification/" + token
         );
         
-        // Send Activiattion Mail with the activitation link 
+        // Send Activation Mail with the activitation link 
         // Send message over to Kafka 
         System.out.println("Sending Message to MailService");
         kafkaProducerService.sendMessage("notificationEmail", newMessage);

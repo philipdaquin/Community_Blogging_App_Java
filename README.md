@@ -5,6 +5,8 @@
 - Typescript
 - Java 11 Maven
 - CSS/ Bootstrap
+- Apache Kafka 
+- Redis
 - Angular 10
 - Spring MVC
 - Spring Security with JWT Authentication

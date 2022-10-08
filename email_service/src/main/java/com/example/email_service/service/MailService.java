@@ -1,4 +1,4 @@
-package com.example.reddit_clone.service;
+package com.example.email_service.service;
 
 
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.example.reddit_clone.exceptions.NotificationException;
-import com.example.reddit_clone.models.NotificationEmail;
+import com.example.email_service.models.NotificationEmail;
 
 import lombok.AllArgsConstructor;
 
@@ -45,7 +44,7 @@ public class MailService {
             mailSender.send(messagePreparator);
         } catch (MailException e) {
             LOGGER.error("Failed to send email", e);
-            throw new NotificationException("Exception occurred when sending mail to " + email.getRecipient(), e);
+            throw new IllegalStateException("❌❌Unable to send verification mail!");
         }
     }
 }

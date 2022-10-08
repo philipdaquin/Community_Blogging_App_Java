@@ -44,9 +44,9 @@ public class KafkaConsumerService {
         include = {ClassCastException.class}, 
         backoff = @Backoff(delay = 1000, multiplier = 2.0),
         includeNames = "java.lang.ClassCastException",
-        dltStrategy = DltStrategy.FAIL_ON_ERROR,
+        dltStrategy = DltStrategy.NO_DLT,
         timeout = "5000"
-        )
+    )
     @KafkaListener(
         topics = "notificationEmail", 
         groupId = "groupId",

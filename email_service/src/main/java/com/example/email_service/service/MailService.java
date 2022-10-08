@@ -45,6 +45,7 @@ public class MailService {
         } catch (MailException e) {
             LOGGER.error("Failed to send email", e);
             throw new IllegalStateException("❌❌Unable to send verification mail!");
-        }
+        } 
+        // return;
     }
 }

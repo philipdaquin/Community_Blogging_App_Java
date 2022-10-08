@@ -17,6 +17,7 @@
 - Postman
 - PostgreSQL
 - MapStruct 
+- Docker-Compose / Docker
 
 Before running the project, ensure to do a Maven Clean up first and then Compile the entire project!
 - You will need to have Postgres installed and Create A Database

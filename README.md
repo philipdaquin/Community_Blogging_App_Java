@@ -18,7 +18,12 @@ Stack
 - MapStruct 
 - Docker-Compose / Docker
 
-Before running the project, ensure to do a Maven Clean up first and then Compile the entire project!
+Before running the project, ensure to do:
+- `mvn clean install -DskipTests`
+- `mvn compile`
+- `docker-compose build --no-cache`
+- `docker-compose up --force-recreate`
+
 - You will need to have Postgres installed and Create A Database
 - Initialise Docker Compose
 

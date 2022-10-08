@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.example.reddit_clone.config.SwaggerConfiguration;
 
-@EnableCaching
+// @EnableCaching
 @SpringBootApplication
 @EnableAsync
 @Import(SwaggerConfiguration.class)

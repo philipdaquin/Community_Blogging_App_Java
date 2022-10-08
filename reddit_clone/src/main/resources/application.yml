@@ -40,4 +40,6 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
-jwt.expiration.time: 900000
+  kafka:
+    bootstrap-servers: localhost:9092
+jwt.expiration.time: 90000

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.reddit_clone.dto.CommentRequest;
 import com.example.reddit_clone.mapper.CommentMapper;
 import com.example.reddit_clone.models.Comment;
-import com.example.reddit_clone.models.NotificationEmail;
+// import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.UserObject;
 import com.example.reddit_clone.repository.CommentRepo;
@@ -26,8 +26,8 @@ public class CommentService {
     private final AuthService authService; 
     private final CommentMapper commentMapper;
     private final CommentRepo commentRepo;
-    private final MailContentBuilder mailContentBuilder;
-    private final MailService mailService;
+    // private final MailContentBuilder mailContentBuilder;
+    // private final MailService mailService;
 
     /**
      * - Get the post from the postid
@@ -49,9 +49,11 @@ public class CommentService {
         commentRepo.save(dtoConversion);
 
         System.out.println("✅ Send Notification to author post");
-        var message = mailContentBuilder
-            .build(post.getUser().getUsername() + "posted a comment on your post" + post.getUrl());
-        sendCommentNotification(message, post.getUser());
+        
+        // Send message to Kafka 
+        // var message = mailContentBuilder
+        //     .build(post.getUser().getUsername() + "posted a comment on your post" + post.getUrl());
+        // sendCommentNotification(message, post.getUser());
     }
 
     /**
@@ -61,12 +63,14 @@ public class CommentService {
      */
     private void sendCommentNotification(String message, UserObject user) {
         System.out.println("🛫 Sending message to user!");
-        mailService.sendMail(new NotificationEmail(
-            // Subject
-            user.getUsername() + "Commented on your post",
-            user.getEmail(),
-            message
-        ));
+
+        // Send Kafka Message
+        // mailService.sendMail(new NotificationEmail(
+        //     // Subject
+        //     user.getUsername() + "Commented on your post",
+        //     user.getEmail(),
+        //     message
+        // ));
     }
 
     /**

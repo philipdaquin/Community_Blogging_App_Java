@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import com.example.reddit_clone.dto.SubRedditRequest;
 import com.example.reddit_clone.mapper.SubRedditMapper;
 import com.example.reddit_clone.repository.SubRedditRepo;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@CacheConfig(cacheNames = "subredditCache")
 public class SubRedditService {
 
     private final SubRedditRepo subRedditRepo;
@@ -35,6 +37,7 @@ public class SubRedditService {
      * 
      * @return
      */
+    @Cacheable(cacheNames = "subreddit")
     @Transactional(readOnly = true)
     public List<SubRedditRequest> getAll() {
         return subRedditRepo.findAll()
@@ -54,7 +57,4 @@ public class SubRedditService {
     //         .numberOfPosts(subreddit.getPosts().size())
     //         .build();
     // }
-
-
-  
 }

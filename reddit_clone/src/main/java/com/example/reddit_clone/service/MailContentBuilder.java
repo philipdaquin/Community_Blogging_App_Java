@@ -1,4 +1,4 @@
-package com.example.email_service.service;
+package com.example.reddit_clone.service;
 
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;

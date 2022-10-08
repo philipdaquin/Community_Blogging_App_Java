@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import com.example.reddit_clone.dto.PostRequest;
 import com.example.reddit_clone.dto.PostResponse;
 import com.example.reddit_clone.mapper.PostMapper;
@@ -21,6 +22,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@CacheConfig(cacheNames = "postCache")
 public class PostService {
 
     private final PostRepository postRepository;
@@ -55,6 +57,7 @@ public class PostService {
      * @return
      * @throws Exception
      */
+    @Cacheable(cacheNames = "posts", key = "#postId")
     @Transactional(readOnly = true)
     public PostResponse getPost(Long postId) { 
         System.out.println("✅ PostService.getPost()");
@@ -62,11 +65,13 @@ public class PostService {
             .map(postMapper::mapToDto)
             .orElseThrow(() -> new IllegalStateException("Post doesn't exist!"));
     }
+
     /**
      * 
      * Get all posts available in the database
      * @return
      */
+    @Cacheable(cacheNames = "posts")
     @Transactional(readOnly = true)
     public List<PostResponse> getAllPosts() { 
         System.out.println("✅ PostService.getAllPosts()");
@@ -81,6 +86,7 @@ public class PostService {
      * @param subRedditId
      * @return
      */
+    @Cacheable(cacheNames = "posts", key = "#subRedditId")
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsBySubReddit(Long subRedditId) { 
         System.out.println("✅ PostService.getPostsBySubReddit()");
@@ -95,6 +101,13 @@ public class PostService {
             .map(postMapper::mapToDto)
             .collect(Collectors.toList());
     }
+
+    /**
+     * 
+     * @param username
+     * @return
+     */
+    @Cacheable(cacheNames = "posts", key = "#username")
     public List<PostResponse> getPostsByUser(String username) { 
         System.out.println("✅ PostService.getPostsByUser()");
         var user = userRepository

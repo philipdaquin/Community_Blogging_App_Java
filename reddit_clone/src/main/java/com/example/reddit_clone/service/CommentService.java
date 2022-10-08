@@ -3,11 +3,14 @@ package com.example.reddit_clone.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.example.reddit_clone.dto.CommentRequest;
 import com.example.reddit_clone.mapper.CommentMapper;
 import com.example.reddit_clone.models.Comment;
+import com.example.reddit_clone.models.NotificationEmail;
 // import com.example.reddit_clone.models.NotificationEmail;
 import com.example.reddit_clone.models.Post;
 import com.example.reddit_clone.models.UserObject;
@@ -19,6 +22,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@CacheConfig(cacheNames = "customerCache")
 public class CommentService {
     
     private final PostRepository postRepository;
@@ -26,8 +30,8 @@ public class CommentService {
     private final AuthService authService; 
     private final CommentMapper commentMapper;
     private final CommentRepo commentRepo;
-    // private final MailContentBuilder mailContentBuilder;
-    // private final MailService mailService;
+    private final MailContentBuilder mailContentBuilder;
+    private final KafkaProducerService kafkaProducerService;
 
     /**
      * - Get the post from the postid
@@ -51,9 +55,10 @@ public class CommentService {
         System.out.println("✅ Send Notification to author post");
         
         // Send message to Kafka 
-        // var message = mailContentBuilder
-        //     .build(post.getUser().getUsername() + "posted a comment on your post" + post.getUrl());
-        // sendCommentNotification(message, post.getUser());
+        var message = mailContentBuilder.build(
+            post.getUser()
+                .getUsername() + "posted a comment on your post" + post.getUrl());
+        sendCommentNotification(message, post.getUser());
     }
 
     /**
@@ -63,14 +68,12 @@ public class CommentService {
      */
     private void sendCommentNotification(String message, UserObject user) {
         System.out.println("🛫 Sending message to user!");
-
-        // Send Kafka Message
-        // mailService.sendMail(new NotificationEmail(
-        //     // Subject
-        //     user.getUsername() + "Commented on your post",
-        //     user.getEmail(),
-        //     message
-        // ));
+        var newMessage = new NotificationEmail(
+            user.getUsername() + "Commented on your post",
+            user.getEmail(),
+            message
+        );
+        kafkaProducerService.sendMessage("notificationEmail", newMessage);
     }
 
     /**
@@ -78,6 +81,7 @@ public class CommentService {
      * @param postId
      * @return
      */
+    @Cacheable(cacheNames = "comments", key = "#postId")
     public List<CommentRequest> getAllCommentsForPost(Long postId) {
         System.out.println("✅ CommentService.getAllCommentsForPost()");
         Post post = postRepository.findById(postId)
@@ -93,6 +97,7 @@ public class CommentService {
      * @param username
      * @return
      */
+    @Cacheable(cacheNames = "comments", sync = true, unless = "#result==null", key = "username")
     public List<CommentRequest> getAllCommentsForUsername(String username) {
         System.out.println("✅ CommentService.getAllCommentsForUsername()");
         UserObject user = userRepository

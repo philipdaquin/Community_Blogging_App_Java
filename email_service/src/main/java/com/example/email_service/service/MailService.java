@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.example.email_service.models.NotificationEmail;
-
 import lombok.AllArgsConstructor;
 
 @Service
@@ -22,7 +21,6 @@ public class MailService {
         .getLogger(MailService.class);
     
     private final JavaMailSender mailSender;
-    private final MailContentBuilder mailContentBuilder;
 
     /**
      * 
@@ -46,6 +44,5 @@ public class MailService {
             LOGGER.error("Failed to send email", e);
             throw new IllegalStateException("❌❌Unable to send verification mail!");
         } 
-        // return;
     }
 }

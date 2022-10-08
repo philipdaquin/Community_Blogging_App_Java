@@ -22,9 +22,27 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+
+# REDIS CACHING #
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 8
+  cache:
+    type: redis
+    redis:
+      time-to-live: 30
+      cache-null-values: false
+
+# MESSAGING QUEUE #
   kafka:
     bootstrap-servers: localhost:9092
-
     topics:
       groupId: groupId
       notificationTopic: notificationTopic

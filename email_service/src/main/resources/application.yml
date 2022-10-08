@@ -1,34 +1,34 @@
+
+
 server:
   error:
     include-message: always
     include-binding-errors: always
-  port: 8080
+  port: 8081
     
 spring:
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
-  datasource:
+  mail:
+    host: localhost
+    port: 1025
+    username: spring
     password: password
-    url: jdbc:postgresql://localhost:5432/reddit_clone
-    username: postgres
-  jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create
     properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: true
-    open-in-view: false
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
   kafka:
     bootstrap-servers: localhost:9092
-
     topics:
       groupId: groupId
       notificationTopic: notificationTopic
       commentTopic: commentTopic
-
-jwt.expiration.time: 90000
-

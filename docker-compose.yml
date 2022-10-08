@@ -1,4 +1,3 @@
----
 version: '3'
 services:
   app:
@@ -6,9 +5,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/reddit_clone
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: ekoloji
+      SPRING_DATASOURCE_PASSWORD: password
       SPRING_REDIS_HOST: cache
       SPRING_REDIS_PORT: 6379
     depends_on:
@@ -21,7 +20,7 @@ services:
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ekoloji
+      POSTGRES_PASSWORD: password
   cache:
     image: "redis"
     ports: 

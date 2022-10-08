@@ -1,7 +1,6 @@
 # Community Blogging Site on SPRING
  A fullstack community blogging site on Java Spring and Angular JS 
-
-
+Stack
 - Typescript
 - Java 11 Maven
 - CSS/ Bootstrap
@@ -21,6 +20,13 @@
 
 Before running the project, ensure to do a Maven Clean up first and then Compile the entire project!
 - You will need to have Postgres installed and Create A Database
+- Initialise Docker Compose
+
+## High Level Architecture (Simplified)
+![assdasdas](https://user-images.githubusercontent.com/85416532/194708835-8114eeb7-67ef-4a72-a897-189bab563e79.png)
+
+## Low Level Architecture
+![91676248-3553ad80-eb0d-11ea-8fc7-e674ef0784a4](https://user-images.githubusercontent.com/85416532/194708844-43c9b77c-4ed4-435b-adf7-efd387e7ec60.png)
 
 ## API Documentation
 ![redd](https://user-images.githubusercontent.com/85416532/194541089-c89d4799-1abc-41b1-871b-b6d7a1a1fe46.png)

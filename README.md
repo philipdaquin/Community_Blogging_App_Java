@@ -8,6 +8,7 @@ Stack
 - Redis
 - Angular 10
 - Spring MVC
+- Spring JWT
 - Spring Security with JWT Authentication
 - Spring boot 
 - Lombok
